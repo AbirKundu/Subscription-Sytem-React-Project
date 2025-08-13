@@ -104,9 +104,10 @@ This scaffold includes a comprehensive set of modern web development tools:
 ![The Result in Localhost Browser](image-2.png)
 ![Admin Panel](image-3.png)
 ![Package Analytics](image-4.png)
-![User History](image-5.png)
 
+![User History](image-5.png)
 ![User Dashboard](image-6.png)
+
 <video controls src="20250813-0927-18.4765571.mp4" title="User Purchased Package"></video>
 <video controls src="20250813-0928-12.6556094.mp4" title="User Switched to Another Package"></video>
 
