@@ -101,6 +101,8 @@ src/
 This scaffold includes a comprehensive set of modern web development tools:
 
 ![The Command in VS Code Terminal](image.png)
+<img width="1919" height="468" alt="image" src="https://github.com/user-attachments/assets/12c34356-b3b8-4589-853c-9da33a010ae5" />
+
 ![The Result in Localhost Browser](image-2.png)
 ![Admin Panel](image-3.png)
 ![Package Analytics](image-4.png)
