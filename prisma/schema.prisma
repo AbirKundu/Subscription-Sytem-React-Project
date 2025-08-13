@@ -1,0 +1,137 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  subscriptions Subscription[]
+  transactions  Transaction[]
+  userCredits   UserCredit[]
+  
+  @@map("users")
+}
+
+model Package {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  price       Float
+  duration    Int      // Duration in days
+  credits     Int      @default(0) // Credits included in this package
+  features    String?  // JSON string of features
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  subscriptions Subscription[]
+  transactions  Transaction[]
+  userCredits   UserCredit[]
+  
+  @@map("packages")
+}
+
+model CreditPackage {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  credits     Int      // Number of credits in this package
+  price       Float
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  userCredits UserCredit[]
+  
+  @@map("credit_packages")
+}
+
+model UserCredit {
+  id             String   @id @default(cuid())
+  userId         String
+  packageId      String?  // Reference to the package that granted these credits
+  creditPackageId String? // Reference to the credit package if purchased separately
+  credits        Int      // Number of credits added
+  remaining      Int      // Remaining credits
+  expiryDate     DateTime? // When these credits expire
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  
+  // Relations
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  package      Package?     @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  creditPackage CreditPackage? @relation(fields: [creditPackageId], references: [id], onDelete: Cascade)
+  
+  @@map("user_credits")
+}
+
+model Subscription {
+  id           String           @id @default(cuid())
+  userId       String
+  packageId    String
+  status       SubscriptionStatus @default(ACTIVE)
+  startDate    DateTime         @default(now())
+  endDate      DateTime
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  
+  // Relations
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  package Package @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  
+  @@map("subscriptions")
+}
+
+model Transaction {
+  id        String           @id @default(cuid())
+  userId    String
+  packageId String
+  amount    Float
+  status    TransactionStatus @default(PENDING)
+  paymentId String?          // External payment gateway ID
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  
+  // Relations
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  package Package @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  
+  @@map("transactions")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
