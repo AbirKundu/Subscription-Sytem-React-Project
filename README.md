@@ -101,7 +101,14 @@ src/
 This scaffold includes a comprehensive set of modern web development tools:
 
 ![The Command in VS Code Terminal](image.png)
-![The Result in Localhost Browser](image-1.png)
+![The Result in Localhost Browser](image-2.png)
+![Admin Panel](image-3.png)
+![Package Analytics](image-4.png)
+![User History](image-5.png)
+
+![User Dashboard](image-6.png)
+<video controls src="20250813-0927-18.4765571.mp4" title="User Purchased Package"></video>
+<video controls src="20250813-0928-12.6556094.mp4" title="User Switched to Another Package"></video>
 
 ## 🗄️ Prisma Database Commands
 If you want to view or manage the database for Subscription System, here are the most useful Prisma commands to run in your VS Code terminal (from the project root):
