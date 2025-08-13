@@ -63,14 +63,14 @@ export function LoginForm({ onToggleMode }: AuthFormProps) {
       <CardContent>
         {/* Quick Login Buttons */}
         <div className="space-y-3 mb-6">
-          <Button
+{/*           <Button
             onClick={() => handleQuickLogin('user@example.com', 'user123')}
             className="w-full"
             variant="outline"
             disabled={isLoading}
           >
             Sign in as User
-          </Button>
+          </Button> */}
           <Button
             onClick={() => handleQuickLogin('admin@example.com', 'admin123')}
             className="w-full"
@@ -88,7 +88,7 @@ export function LoginForm({ onToggleMode }: AuthFormProps) {
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background px-2 text-muted-foreground">
-              Or sign in with email
+              Or sign in with email as User.
             </span>
           </div>
         </div>
